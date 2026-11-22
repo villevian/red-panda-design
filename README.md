@@ -16,6 +16,7 @@
 | Кейс Villa Montallegro (концепт) | `case-villa-montallegro.html` | https://villevian.github.io/red-panda-design/case-villa-montallegro.html |
 | Кейс Vela | `case-vela.html` | https://villevian.github.io/red-panda-design/case-vela.html |
 | Кейс Orbit | `case-orbit.html` | https://villevian.github.io/red-panda-design/case-orbit.html |
+| Кейс Contivolo | `case-contivolo.html` | https://villevian.github.io/red-panda-design/case-contivolo.html |
 
 Зображення кейсів лежать у `assets/`.
 
