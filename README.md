@@ -17,6 +17,7 @@
 | Кейс Vela | `case-vela.html` | https://villevian.github.io/red-panda-design/case-vela.html |
 | Кейс Orbit | `case-orbit.html` | https://villevian.github.io/red-panda-design/case-orbit.html |
 | Кейс Contivolo | `case-contivolo.html` | https://villevian.github.io/red-panda-design/case-contivolo.html |
+| Кейс Orlume | `case-orlume.html` | https://villevian.github.io/red-panda-design/case-orlume.html |
 
 Зображення кейсів лежать у `assets/`.
 
