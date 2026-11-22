@@ -14,6 +14,7 @@
 | Кейс Pesto&Co | `case-pesto.html` | https://villevian.github.io/red-panda-design/case-pesto.html |
 | Кейс Nord Coffee | `case-nord.html` | https://villevian.github.io/red-panda-design/case-nord.html |
 | Кейс Villa Montallegro (концепт) | `case-villa-montallegro.html` | https://villevian.github.io/red-panda-design/case-villa-montallegro.html |
+| Кейс Vela | `case-vela.html` | https://villevian.github.io/red-panda-design/case-vela.html |
 
 Зображення кейсів лежать у `assets/`.
 
