@@ -55,7 +55,7 @@ a{color:#F5EFEA;text-decoration:none}a:hover{color:#FFB547}
 <h1 style="margin: 0; font-family: Unbounded, sans-serif; font-weight: 700; font-size: clamp(44px, 5.8vw, 84px); line-height: 1; letter-spacing: -0.035em"><span class="rp-silver">Розкажіть</span><br><span class="rp-grad">про проєкт.</span></h1>
 <p style="margin: 0; max-width: 440px; font-size: 17px; line-height: 1.65; color: #A89F99">Відповімо протягом робочого дня. Якщо потрібен друк — напишіть тираж, і ми одразу прикинемо вартість.</p>
 <div class="rp-glass" style="display: flex; flex-direction: column; border-radius: 28px; overflow: hidden">
-<div style="padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #A89F99">Пошта</span><span style="font-weight: 800; font-size: 18px">[ваш email]</span></div>
+<div style="padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #A89F99">Пошта</span><a href="mailto:meet.red.panda@gmail.com" style="font-weight: 800; font-size: 18px; overflow-wrap: anywhere">meet.red.panda@gmail.com</a></div>
 <div style="padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #A89F99">Телефон / Telegram</span><span style="font-weight: 800; font-size: 18px">[ваш номер]</span></div>
 <div style="padding: 20px 24px; display: flex; gap: 18px; flex-wrap: wrap; font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase"><a href="#">Instagram</a><a href="#">Behance</a><a href="#">Telegram</a></div>
 </div>
@@ -113,7 +113,7 @@ a{color:#F5EFEA;text-decoration:none}a:hover{color:#FFB547}
 <div style="max-width: 1280px; margin: 0 auto; padding: 48px 24px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px">
 <div style="display: flex; flex-direction: column; gap: 12px; flex: 1 1 280px"><span class="rp-grad" style="font-family: Unbounded, sans-serif; font-weight: 800; font-size: 22px">RED PANDA</span><span style="font-size: 15px; color: #A89F99; max-width: 320px; line-height: 1.6">Бренд-студія: брендинг, ребрендинг, поліграфія з друком і вебдизайн.</span></div>
 <nav aria-label="Меню в підвалі" style="display: flex; flex-direction: column; gap: 10px; font-weight: 600; font-size: 15px"><a href="services.html">Послуги</a><a href="work.html">Роботи</a><a href="pricing.html">Ціни</a><a href="contact.html">Контакти</a></nav>
-<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px"><span style="font-weight: 800">[ваш email]</span><a href="#">Instagram</a><a href="#">Behance</a><a href="#">Telegram</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px"><a href="mailto:meet.red.panda@gmail.com" style="font-weight: 800">meet.red.panda@gmail.com</a><a href="#">Instagram</a><a href="#">Behance</a><a href="#">Telegram</a></div>
 </div>
 <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px 32px; font-size: 14px; color: #A89F99">© 2026 Red Panda Design</div>
 </footer>
@@ -234,6 +234,53 @@ class Component extends DCLogic {
     };
   }
 }
+/* Site-only: send the contact form to the studio inbox via FormSubmit; fall back to the visitor's mail app. */
+(function () {
+  var TO = 'meet.red.panda@gmail.com';
+  function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+  function mailtoFallback(lines) {
+    var body = encodeURIComponent(lines.join('\n'));
+    window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent('Заявка з сайту Red Panda') + '&body=' + body;
+  }
+  var baseRender = Component.prototype.renderVals;
+  Component.prototype.renderVals = function () {
+    var self = this;
+    var v = baseRender.call(this);
+    v.send = function () {
+      var contact = val('rp-email');
+      var field = document.getElementById('rp-email');
+      if (!contact) {
+        if (field) { field.setAttribute('aria-invalid', 'true'); field.style.borderColor = '#FF4D8D'; field.focus(); }
+        return;
+      }
+      var data = {
+        'Ім’я': val('rp-name') || '—',
+        'Email або телефон': contact,
+        'Послуги': (self.state.picked || []).join(', ') || '—',
+        'Бюджет': self.state.budget || '—',
+        'Тираж': val('rp-run') || '—',
+        'Задача': val('rp-msg') || '—',
+        _subject: 'Нова заявка з сайту Red Panda',
+        _template: 'table',
+        _captcha: 'false'
+      };
+      if (contact.indexOf('@') > 0) data._replyto = contact;
+      var lines = Object.keys(data).filter(function (k) { return k.charAt(0) !== '_'; }).map(function (k) { return k + ': ' + data[k]; });
+      fetch('https://formsubmit.co/ajax/' + TO, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (res) {
+          if (res && (res.success === true || res.success === 'true')) self.setState({ sent: true });
+          else { mailtoFallback(lines); self.setState({ sent: true }); }
+        })
+        .catch(function () { mailtoFallback(lines); self.setState({ sent: true }); });
+    };
+    return v;
+  };
+})();
+
 rpMount(Component);
 </script>
 </body>
