@@ -13,6 +13,7 @@
 | Контакти | `contact.html` | https://villevian.github.io/red-panda-design/contact.html |
 | Кейс Pesto&Co | `case-pesto.html` | https://villevian.github.io/red-panda-design/case-pesto.html |
 | Кейс Nord Coffee | `case-nord.html` | https://villevian.github.io/red-panda-design/case-nord.html |
+| Кейс Villa Montallegro (концепт) | `case-villa-montallegro.html` | https://villevian.github.io/red-panda-design/case-villa-montallegro.html |
 
 Зображення кейсів лежать у `assets/`.
 
