@@ -11,6 +11,9 @@
 | Роботи | `work.html` | https://villevian.github.io/red-panda-design/work.html |
 | Ціни | `pricing.html` | https://villevian.github.io/red-panda-design/pricing.html |
 | Контакти | `contact.html` | https://villevian.github.io/red-panda-design/contact.html |
+| Кейс Pesto&Co | `case-pesto.html` | https://villevian.github.io/red-panda-design/case-pesto.html |
+
+Зображення кейсів лежать у `assets/`.
 
 Кожна сторінка — окремий самодостатній HTML-файл без збірки та залежностей (крім шрифтів Google Fonts).
 
