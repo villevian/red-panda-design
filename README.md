@@ -18,6 +18,7 @@
 | Кейс Orbit | `case-orbit.html` | https://villevian.github.io/red-panda-design/case-orbit.html |
 | Кейс Contivolo | `case-contivolo.html` | https://villevian.github.io/red-panda-design/case-contivolo.html |
 | Кейс Orlume | `case-orlume.html` | https://villevian.github.io/red-panda-design/case-orlume.html |
+| Візитки Лігурії (концепти) | `case-business-cards.html` | https://villevian.github.io/red-panda-design/case-business-cards.html |
 
 Зображення кейсів лежать у `assets/`.
 
